@@ -83,11 +83,6 @@
             100% { background-position: -704px 0; } /* 32px * 22 frames = 704px */
         }
 
-        /* Moving bunny left or right after falling */
-        @keyframes moveSideways {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(calc(50px * (random() > 0.5 ? 1 : -1))); }
-        }
     </style>
 </head>
 <body>
@@ -126,8 +121,10 @@
 
                 // Trigger the bunny's random movement after it has fallen
                 setTimeout(() => {
-                    bunny.style.animation = "moveSideways 1s ease-in-out infinite";
-                    bunny.style.animationIterationCount = "infinite";  // Ensures continuous movement
+                    // Move bunny left or right at random intervals
+                    setInterval(() => {
+                        moveBunnySideways(bunny);
+                    }, 1000); // Change position every second
                 }, 3000); // Starts moving after 3 seconds (after the fall)
             } else {
                 alert('Maximum number of bunnies reached!');
@@ -139,6 +136,20 @@
             const maxX = window.innerWidth - bunny.offsetWidth;
             const randomX = Math.floor(Math.random() * maxX);
             bunny.style.left = `${randomX}px`;
+        }
+
+        // Move bunny left or right randomly
+        function moveBunnySideways(bunny) {
+            const maxX = window.innerWidth - bunny.offsetWidth;
+            let currentLeft = parseInt(bunny.style.left, 10) || 0;
+            let moveBy = Math.floor(Math.random() * 40) - 20;  // Move between -20 and +20 px
+
+            // Ensure the bunny stays within the screen boundaries
+            let newLeft = currentLeft + moveBy;
+            if (newLeft < 0) newLeft = 0;
+            if (newLeft > maxX) newLeft = maxX;
+
+            bunny.style.left = `${newLeft}px`;
         }
     </script>
 </body>
