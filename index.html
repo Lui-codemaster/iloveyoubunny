@@ -86,7 +86,7 @@
     </style>
 </head>
 <body>
-    <h1>Do you wanna be my Valentine?<br>(Would make me VERY happy)</h1>
+    <h1>Do you wanna be my Valentine?<br>(Would make me veryyy happy)</h1>
     <div class="buttons">
         <button id="yesBtn" onclick="createBunny()">Yes</button>
         <button id="noBtn">No</button>
@@ -108,24 +108,19 @@
 
         // Create a bunny when "Yes" is clicked
         function createBunny() {
-            if (bunnyCount < maxBunnies) {
-                const bunny = document.createElement('div');
-                bunny.classList.add('bunny');
-                bunnyContainer.appendChild(bunny);
+        if (bunnyCount < maxBunnies) {
+            const bunny = document.createElement('div');
+            bunny.classList.add('bunny');
+            bunnyContainer.appendChild(bunny);
 
-                // Set initial random position for the bunny
-                setRandomStart(bunny);
+            setRandomStart(bunny);
+            bunnyCount++;
 
-                // Increment the bunny count
-                bunnyCount++;
-
-                // Trigger the bunny's random movement after it has fallen
-                setTimeout(() => {
-                    // Move bunny left or right at random intervals
-                    setInterval(() => {
-                        moveBunnySideways(bunny);
-                    }, 1000); // Change position every second
-                }, 3000); // Starts moving after 3 seconds (after the fall)
+            // Trigger the bunny's animation and movement after it has fallen
+            setTimeout(() => {
+                // Start sprite animation at 12 FPS and sideways movement
+                bunny.style.animation = "hop 1.92s steps(23) infinite, moveSideways 1s ease-in-out infinite";
+            }, 3000); // Starts moving after 3 seconds (after the fall)
             } else {
                 alert('Maximum number of bunnies reached!');
             }
