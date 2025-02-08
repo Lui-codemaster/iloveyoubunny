@@ -64,32 +64,34 @@
             background-size: 160px 160px; /* Size of the whole sprite sheet */
             position: absolute;
             top: -32px;
-            animation: hop 1s steps(22) infinite, fall 3s ease-in-out forwards;
-        }
-
-        /* Bunny hopping animation */
-        @keyframes hop {
-            0% { background-position: 0 0; }
-            100% { background-position: -704px 0; } /* 32px * 22 frames = 704px */
+            animation: fall 3s ease-in-out forwards, moveSideways 1s ease-in-out infinite;
         }
 
         /* Bunny falling animation */
         @keyframes fall {
             0% {
                 top: -32px;
-                transform: translateX(0);
-            }
-            80% {
-                top: calc(100vh - 32px);
             }
             100% {
-                top: calc(100vh - 32px);
+                top: calc(100vh - 32px); /* Make it fall to the bottom of the screen */
             }
+        }
+
+        /* Bunny animation through the 23 frames at 12 FPS */
+        @keyframes hop {
+            0% { background-position: 0 0; }
+            100% { background-position: -704px 0; } /* 32px * 22 frames = 704px */
+        }
+
+        /* Moving bunny left or right after falling */
+        @keyframes moveSideways {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(50px * (random() > 0.5 ? 1 : -1))); }
         }
     </style>
 </head>
 <body>
-    <h1>Do you wanna be my Valentine?<br>(Would make me VeRY happy)</h1>
+    <h1>Do you wanna be my Valentine?<br>(Would make me very happy)</h1>
     <div class="buttons">
         <button id="yesBtn" onclick="createBunny()">Yes</button>
         <button id="noBtn">No</button>
@@ -121,6 +123,11 @@
 
                 // Increment the bunny count
                 bunnyCount++;
+
+                // Trigger the bunny's random movement after it has fallen
+                setTimeout(() => {
+                    bunny.style.animation = "moveSideways 1s ease-in-out infinite";
+                }, 3000); // Starts moving after 3 seconds (after the fall)
             } else {
                 alert('Maximum number of bunnies reached!');
             }
@@ -135,5 +142,6 @@
     </script>
 </body>
 </html>
+
 
 
