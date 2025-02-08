@@ -61,7 +61,7 @@
             width: 32px;
             height: 32px;
             background: url('Bunny1.png') 0 0 no-repeat;
-            background-size: 160px 160px; /* Size of the whole sprite sheet */
+            background-size: 736px 32px; /* Total width of valid frames (23 * 32px) */
             position: absolute;
             top: -32px;
             animation: fall 3s ease-in-out forwards;
@@ -78,10 +78,10 @@
             }
         }
 
-        /* Bunny animation through the 23 frames at 12 FPS */
+        /* Bunny animation through the 23 valid frames at 12 FPS */
         @keyframes hop {
-            0% { background-position: 0 0; }
-            100% { background-position: -160px -160px; } /* Move through all frames */
+            0% { background-position: 0 0; } /* Frame 1 */
+            100% { background-position: -736px 0; } /* Frame 23 (23 * 32px) */
         }
     </style>
 </head>
