@@ -60,18 +60,19 @@
         .bunny {
             width: 100px;
             height: 100px;
-            background: url('Bunny1.png') 0 0 no-repeat;
+            background: url('bunny-sprite.png') 0 0 no-repeat;
             background-size: 300px 100px;
             position: absolute;
             top: -120px;
-
             animation: hop 1s steps(3) infinite, fall 3s ease-in-out infinite;
         }
 
         /* Bunny hopping animation */
         @keyframes hop {
-            from { background-position: 0 0; }
-            to { background-position: -300px 0; }
+            0% { background-position: 0 0; }
+            33% { background-position: -100px 0; }
+            66% { background-position: -200px 0; }
+            100% { background-position: 0 0; }
         }
 
         /* Bunny falling animation */
@@ -91,54 +92,38 @@
 </head>
 <body>
     <h1>Do you wanna be my Valentine?<br>(Would make me very happy)</h1>
-    <div class="bunny"></div>
     <div class="buttons">
-        <button id="yesBtn" onclick="alert('Yay! ❤️')">Yes</button>
+        <button id="yesBtn" onclick="createBunny()">Yes</button>
         <button id="noBtn">No</button>
     </div>
 
-    <!-- JavaScript inside the HTML -->
     <script>
-        // Make the "No" button move when hovered over
-        const noBtn = document.getElementById('noBtn');
+        const bunnyContainer = document.querySelector('body');
+        const maxBunnies = 12;
+        let bunnyCount = 0;
 
-        noBtn.addEventListener('mouseover', () => {
-            const randomX = Math.floor(Math.random() * (window.innerWidth - noBtn.offsetWidth));
-            const randomY = Math.floor(Math.random() * (window.innerHeight - noBtn.offsetHeight));
-            noBtn.style.position = 'absolute';
-            noBtn.style.left = `${randomX}px`;
-            noBtn.style.top = `${randomY}px`;
-        });
+        function createBunny() {
+            if (bunnyCount < maxBunnies) {
+                const bunny = document.createElement('div');
+                bunny.classList.add('bunny');
+                bunnyContainer.appendChild(bunny);
 
-        // Bunny movement logic
-        const bunny = document.querySelector('.bunny');
+                // Set initial random position for the bunny
+                setRandomStart(bunny);
 
-        // Start bunny at a random X position
-        function setRandomStart() {
+                // Increment the bunny count
+                bunnyCount++;
+            } else {
+                alert('Maximum number of bunnies reached!');
+            }
+        }
+
+        // Set random start position for each bunny
+        function setRandomStart(bunny) {
             const maxX = window.innerWidth - bunny.offsetWidth;
             const randomX = Math.floor(Math.random() * maxX);
             bunny.style.left = `${randomX}px`;
         }
-
-        // Make the bunny hop slightly left or right
-        function randomHop() {
-            const maxX = window.innerWidth - bunny.offsetWidth;
-            let currentLeft = parseInt(bunny.style.left, 10) || 0;
-            let moveBy = Math.floor(Math.random() * 40) - 20;  // Move between -20 and +20 px
-
-            // Ensure the bunny stays within the screen boundaries
-            let newLeft = currentLeft + moveBy;
-            if (newLeft < 0) newLeft = 0;
-            if (newLeft > maxX) newLeft = maxX;
-
-            bunny.style.left = `${newLeft}px`;
-        }
-
-        // Trigger random start and hops
-        setRandomStart();
-        setInterval(randomHop, 1000);  // Bunny hops every second
-        setInterval(setRandomStart, 3000);  // Bunny falls from the top every 3 seconds
     </script>
 </body>
 </html>
-
