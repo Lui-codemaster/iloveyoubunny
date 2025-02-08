@@ -3,47 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Simple Webpage</title>
+    <title>Be My Valentine?<br>(Would make me very happy)</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #ffe6e6;
             margin: 0;
             padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            height: 100vh;
         }
 
         h1 {
-            color: #333;
-        }
-
-        p {
-            font-size: 18px;
-            color: #555;
-            max-width: 600px;
+            color: #d6336c;
+            font-size: 3em;
             text-align: center;
         }
 
-        a {
+        .buttons {
             margin-top: 20px;
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #007BFF;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
         }
 
-        a:hover {
-            background-color: #0056b3;
+        button {
+            padding: 15px 30px;
+            margin: 10px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        #yesBtn {
+            background-color: #28a745;
+            color: white;
+        }
+
+        #yesBtn:hover {
+            background-color: #218838;
+        }
+
+        #noBtn {
+            background-color: #dc3545;
+            color: white;
+            position: relative;
+        }
+
+        #noBtn:hover {
+            background-color: #c82333;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to My Webpage!</h1>
-    <p>This is a simple webpage hosted on GitHub Pages. You can customize this text and style it however you like!</p>
-    <a href="https://github.com">Visit GitHub</a>
+    <h1>Do you wanna be my Valentine?</h1>
+    <div class="buttons">
+        <button id="yesBtn" onclick="alert('Yay! ❤️')">Yes</button>
+        <button id="noBtn">No</button>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+
+        noBtn.addEventListener('mouseover', () => {
+            const randomX = Math.floor(Math.random() * (window.innerWidth - noBtn.offsetWidth));
+            const randomY = Math.floor(Math.random() * (window.innerHeight - noBtn.offsetHeight));
+
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = `${randomX}px`;
+            noBtn.style.top = `${randomY}px`;
+        });
+    </script>
 </body>
 </html>
