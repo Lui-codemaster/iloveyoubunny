@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1I love you Anna</title>
+    <title>I love you Anna</title>
     <style>
         body {
             margin: 0;
@@ -79,10 +79,9 @@
 
         /* Bunny animation through the 23 frames at 12 FPS */
         @keyframes hop {
-    0% { background-position: 0 0; }
-    100% { background-position: -736px 0; } /* 32px * 23 frames = 736px */
-}
-
+            0% { background-position: 0 0; }
+            100% { background-position: -736px 0; } /* 32px * 23 frames = 736px */
+        }
     </style>
 </head>
 <body>
@@ -121,10 +120,10 @@
 
                 // Trigger the bunny's animation and random movement after it has fallen
                 setTimeout(() => {
-    bunny.style.top = `calc(100vh - 32px)`;  // Lock bunny's position at the bottom
-    bunny.style.animation = "hop 1.92s steps(23) infinite";  // Start the sprite animation
-    moveBunnySideways(bunny);  // Start moving sideways
-}, 3000);
+                    bunny.style.top = `calc(100vh - 32px)`;  // Lock bunny's position at the bottom
+                    bunny.style.animation = "hop 1.92s steps(23) infinite";  // Start the sprite animation
+                    moveBunnySideways(bunny);  // Start moving sideways
+                }, 3000);
             } else {
                 alert('Maximum number of bunnies reached!');
             }
@@ -149,10 +148,15 @@
             if (newLeft > maxX) newLeft = maxX;
 
             bunny.style.left = `${newLeft}px`;
+
+            // Repeat the movement every 100ms
+            setTimeout(() => moveBunnySideways(bunny), 100);
         }
     </script>
 </body>
 </html>
+
+
 
 
 
