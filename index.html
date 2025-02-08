@@ -49,7 +49,7 @@
         #noBtn {
             background-color: #dc3545;
             color: white;
-            position: absolute;  /* Make sure it's positioned absolutely */
+            position: absolute;
         }
 
         #noBtn:hover {
@@ -58,40 +58,38 @@
 
         /* Bunny sprite styling */
         .bunny {
-            width: 100px;
-            height: 100px;
-            background: url('bunny-sprite.png') 0 0 no-repeat;
-            background-size: 300px 100px;
+            width: 160px;
+            height: 160px;
+            background: url('Bunny1.png') 0 0 no-repeat;
+            background-size: 3680px 160px; /* 160px x 23 frames = 3680px */
             position: absolute;
-            top: -120px;
-            animation: hop 1s steps(3) infinite, fall 3s ease-in-out forwards;
+            top: -160px;
+            animation: hop 1s steps(23) infinite, fall 3s ease-in-out forwards;
         }
 
         /* Bunny hopping animation */
         @keyframes hop {
             0% { background-position: 0 0; }
-            33% { background-position: -100px 0; }
-            66% { background-position: -200px 0; }
-            100% { background-position: 0 0; }
+            100% { background-position: -3680px 0; }
         }
 
         /* Bunny falling animation */
         @keyframes fall {
             0% {
-                top: -120px;
+                top: -160px;
                 transform: translateX(0);
             }
             80% {
-                top: calc(100vh - 120px);
+                top: calc(100vh - 160px);
             }
             100% {
-                top: calc(100vh - 120px);
+                top: calc(100vh - 160px);
             }
         }
     </style>
 </head>
 <body>
-    <h1>Do you wanna be my Valentine?<br>(Would make me very happy)</h1>
+    <h1>Do you wanna be my Valentine?<br>(Would make me VERY happy)</h1>
     <div class="buttons">
         <button id="yesBtn" onclick="createBunny()">Yes</button>
         <button id="noBtn">No</button>
@@ -137,3 +135,4 @@
     </script>
 </body>
 </html>
+
