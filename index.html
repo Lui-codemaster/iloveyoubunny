@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1I love you Anna</title>
+    <title>I love you Anna</title>
     <style>
         body {
             margin: 0;
@@ -58,12 +58,12 @@
 
         /* Bunny sprite styling */
         .bunny {
-            width: 32px;
-            height: 32px;
+            width: 64px; /* Increased size */
+            height: 64px; /* Increased size */
             background: url('Bunny1.png') 0 0 no-repeat;
-            background-size: 160px 160px; /* Size of the whole sprite sheet */
+            background-size: 320px 320px; /* Scaled up to match the new size */
             position: absolute;
-            top: -32px;
+            top: -64px; /* Adjusted for the new size */
             animation: fall 3s ease-in-out forwards;
             transform: translateZ(0); /* Force hardware acceleration */
         }
@@ -71,40 +71,40 @@
         /* Bunny falling animation */
         @keyframes fall {
             0% {
-                top: -32px;
+                top: -64px; /* Adjusted for the new size */
             }
             100% {
-                top: calc(100vh - 32px); /* Make it fall to the bottom of the screen */
+                top: calc(100vh - 64px); /* Adjusted for the new size */
             }
         }
 
         /* Bunny animation through the 25 frames at 12 FPS */
         @keyframes hop {
             0% { background-position: 0 0; } /* Frame 1 */
-            4% { background-position: -32px 0; } /* Frame 2 */
-            8% { background-position: -64px 0; } /* Frame 3 */
-            12% { background-position: -96px 0; } /* Frame 4 */
-            16% { background-position: -128px 0; } /* Frame 5 */
-            20% { background-position: 0 -32px; } /* Frame 6 */
-            24% { background-position: -32px -32px; } /* Frame 7 */
-            28% { background-position: -64px -32px; } /* Frame 8 */
-            32% { background-position: -96px -32px; } /* Frame 9 */
-            36% { background-position: -128px -32px; } /* Frame 10 */
-            40% { background-position: 0 -64px; } /* Frame 11 */
-            44% { background-position: -32px -64px; } /* Frame 12 */
-            48% { background-position: -64px -64px; } /* Frame 13 */
-            52% { background-position: -96px -64px; } /* Frame 14 */
-            56% { background-position: -128px -64px; } /* Frame 15 */
-            60% { background-position: 0 -96px; } /* Frame 16 */
-            64% { background-position: -32px -96px; } /* Frame 17 */
-            68% { background-position: -64px -96px; } /* Frame 18 */
-            72% { background-position: -96px -96px; } /* Frame 19 */
-            76% { background-position: -128px -96px; } /* Frame 20 */
-            80% { background-position: 0 -128px; } /* Frame 21 */
-            84% { background-position: -32px -128px; } /* Frame 22 */
-            88% { background-position: -64px -128px; } /* Frame 23 */
-            92% { background-position: -96px -128px; } /* Frame 24 */
-            96% { background-position: -128px -128px; } /* Frame 25 */
+            4% { background-position: -64px 0; } /* Frame 2 */
+            8% { background-position: -128px 0; } /* Frame 3 */
+            12% { background-position: -192px 0; } /* Frame 4 */
+            16% { background-position: -256px 0; } /* Frame 5 */
+            20% { background-position: 0 -64px; } /* Frame 6 */
+            24% { background-position: -64px -64px; } /* Frame 7 */
+            28% { background-position: -128px -64px; } /* Frame 8 */
+            32% { background-position: -192px -64px; } /* Frame 9 */
+            36% { background-position: -256px -64px; } /* Frame 10 */
+            40% { background-position: 0 -128px; } /* Frame 11 */
+            44% { background-position: -64px -128px; } /* Frame 12 */
+            48% { background-position: -128px -128px; } /* Frame 13 */
+            52% { background-position: -192px -128px; } /* Frame 14 */
+            56% { background-position: -256px -128px; } /* Frame 15 */
+            60% { background-position: 0 -192px; } /* Frame 16 */
+            64% { background-position: -64px -192px; } /* Frame 17 */
+            68% { background-position: -128px -192px; } /* Frame 18 */
+            72% { background-position: -192px -192px; } /* Frame 19 */
+            76% { background-position: -256px -192px; } /* Frame 20 */
+            80% { background-position: 0 -256px; } /* Frame 21 */
+            84% { background-position: -64px -256px; } /* Frame 22 */
+            88% { background-position: -128px -256px; } /* Frame 23 */
+            92% { background-position: -192px -256px; } /* Frame 24 */
+            96% { background-position: -256px -256px; } /* Frame 25 */
             100% { background-position: 0 0; } /* Loop back to Frame 1 */
         }
     </style>
@@ -145,7 +145,7 @@
 
                 // Trigger the bunny's animation and random movement after it has fallen
                 setTimeout(() => {
-                    bunny.style.top = `calc(100vh - 32px)`;  // Lock bunny's position at the bottom
+                    bunny.style.top = `calc(100vh - 64px)`;  // Adjusted for the new size
                     bunny.style.animation = "hop 2.08s steps(25) infinite";  // Start the sprite animation
                     moveBunnySideways(bunny);  // Start moving sideways
                 }, 3000);
