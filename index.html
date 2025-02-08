@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1I love you Anna</title>
+    <title>I love you Anna</title>
     <style>
         body {
             margin: 0;
@@ -61,7 +61,7 @@
             width: 32px;
             height: 32px;
             background: url('Bunny1.png') 0 0 no-repeat;
-            background-size: 160px 160px;
+            background-size: 160px 160px; /* Size of the whole sprite sheet */
             position: absolute;
             top: -32px;
             animation: fall 3s ease-in-out forwards;
@@ -73,14 +73,14 @@
                 top: -32px;
             }
             100% {
-                top: calc(100vh - 64px);
+                top: calc(100vh - 64px); /* Adjusted to keep the bunny visible */
             }
         }
 
         /* Bunny animation through the 23 frames at 12 FPS */
         @keyframes hop {
             from { background-position: 0 0; }
-            to { background-position: -704px 0; }
+            to { background-position: -704px 0; } /* 32px * 22 frames = 704px */
         }
     </style>
 </head>
@@ -115,10 +115,9 @@
                 setRandomStart(bunny);
                 bunnyCount++;
 
-                // Trigger the bunny's animation and movement after it has fallen
+                // After falling, start sprite animation and movement
                 setTimeout(() => {
-                    bunny.style.animation = "hop 1.92s steps(23) infinite";
-                    moveBunnySideways(bunny);
+                    bunny.style.animation = "hop 1.92s steps(23) infinite, moveSideways 2s ease-in-out infinite";
                 }, 3000);
             } else {
                 alert('Maximum number of bunnies reached!');
@@ -132,23 +131,20 @@
             bunny.style.left = `${randomX}px`;
         }
 
-        // Move bunny left or right randomly
-        function moveBunnySideways(bunny) {
-            setInterval(() => {
-                const maxX = window.innerWidth - bunny.offsetWidth;
-                let currentLeft = parseInt(bunny.style.left, 10) || 0;
-                let moveBy = Math.random() > 0.5 ? 20 : -20;
-                let newLeft = currentLeft + moveBy;
-
-                if (newLeft < 0) newLeft = 0;
-                if (newLeft > maxX) newLeft = maxX;
-
-                bunny.style.left = `${newLeft}px`;
-            }, 1000);
-        }
+        // Define sideways movement
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes moveSideways {
+                0% { transform: translateX(0); }
+                50% { transform: translateX(20px); }
+                100% { transform: translateX(0); }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
+
 
 
 
