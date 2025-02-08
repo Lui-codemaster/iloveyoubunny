@@ -49,7 +49,7 @@
         #noBtn {
             background-color: #dc3545;
             color: white;
-            position: relative;
+            position: absolute;  /* Make sure it's positioned absolutely */
         }
 
         #noBtn:hover {
@@ -60,7 +60,7 @@
         .bunny {
             width: 100px;
             height: 100px;
-            background: url('Bunny1.png') 0 0 no-repeat;
+            background: url('bunny-sprite.png') 0 0 no-repeat;
             background-size: 300px 100px;
             position: absolute;
             top: -120px;
@@ -91,7 +91,7 @@
     </style>
 </head>
 <body>
-    <h1>Do you wanna be my Valentine?<br>(Would make me very very happy)</h1>
+    <h1>Do you wanna be my Valentine?<br>(Would make me very happy)</h1>
     <div class="buttons">
         <button id="yesBtn" onclick="createBunny()">Yes</button>
         <button id="noBtn">No</button>
@@ -102,6 +102,16 @@
         const maxBunnies = 12;
         let bunnyCount = 0;
 
+        // "No" button movement logic
+        const noBtn = document.getElementById('noBtn');
+        noBtn.addEventListener('mouseover', () => {
+            const randomX = Math.floor(Math.random() * (window.innerWidth - noBtn.offsetWidth));
+            const randomY = Math.floor(Math.random() * (window.innerHeight - noBtn.offsetHeight));
+            noBtn.style.left = `${randomX}px`;  // Move the button randomly on hover
+            noBtn.style.top = `${randomY}px`;
+        });
+
+        // Create a bunny when "Yes" is clicked
         function createBunny() {
             if (bunnyCount < maxBunnies) {
                 const bunny = document.createElement('div');
@@ -118,7 +128,7 @@
             }
         }
 
-        // Set random start position for each bunny
+        // Set random horizontal position for each bunny
         function setRandomStart(bunny) {
             const maxX = window.innerWidth - bunny.offsetWidth;
             const randomX = Math.floor(Math.random() * maxX);
