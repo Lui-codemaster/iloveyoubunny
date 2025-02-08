@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I love you Anna</title>
+    <title>1I love you Anna</title>
     <style>
         body {
             margin: 0;
@@ -121,13 +121,10 @@
 
                 // Trigger the bunny's animation and random movement after it has fallen
                 setTimeout(() => {
-                    bunny.style.animation = "hop 1.92s steps(23) infinite";
-
-                    // Move bunny left or right at random intervals
-                    setInterval(() => {
-                        moveBunnySideways(bunny);
-                    }, 1000); // Change position every second
-                }, 3000); // Starts moving after 3 seconds (after the fall)
+    bunny.style.top = `calc(100vh - 32px)`;  // Lock bunny's position at the bottom
+    bunny.style.animation = "hop 1.92s steps(23) infinite";  // Start the sprite animation
+    moveBunnySideways(bunny);  // Start moving sideways
+}, 3000);
             } else {
                 alert('Maximum number of bunnies reached!');
             }
