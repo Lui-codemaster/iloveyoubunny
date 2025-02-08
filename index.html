@@ -119,8 +119,10 @@
                 // Increment the bunny count
                 bunnyCount++;
 
-                // Trigger the bunny's random movement after it has fallen
+                // Trigger the bunny's animation and random movement after it has fallen
                 setTimeout(() => {
+                    bunny.style.animation = "hop 1.92s steps(23) infinite";
+
                     // Move bunny left or right at random intervals
                     setInterval(() => {
                         moveBunnySideways(bunny);
@@ -154,6 +156,8 @@
     </script>
 </body>
 </html>
+
+
 
 
 
