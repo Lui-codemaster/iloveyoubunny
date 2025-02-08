@@ -61,7 +61,7 @@
             width: 160px;
             height: 160px;
             background: url('Bunny1.png') 0 0 no-repeat;
-            background-size: 3680px 160px; /* 160px x 23 frames = 3680px */
+            background-size: 736px 160px; /* 32px x 23 frames = 736px */
             position: absolute;
             top: -160px;
             animation: hop 1s steps(23) infinite, fall 3s ease-in-out forwards;
@@ -70,7 +70,7 @@
         /* Bunny hopping animation */
         @keyframes hop {
             0% { background-position: 0 0; }
-            100% { background-position: -3680px 0; }
+            100% { background-position: -736px 0; }
         }
 
         /* Bunny falling animation */
@@ -89,7 +89,7 @@
     </style>
 </head>
 <body>
-    <h1>Do you wanna be my Valentine?<br>(Would make me VERY happy)</h1>
+    <h1>Do you wanna be my Valentine?<br>(Would make me very happy)</h1>
     <div class="buttons">
         <button id="yesBtn" onclick="createBunny()">Yes</button>
         <button id="noBtn">No</button>
@@ -135,4 +135,5 @@
     </script>
 </body>
 </html>
+
 
