@@ -58,38 +58,38 @@
 
         /* Bunny sprite styling */
         .bunny {
-            width: 160px;
-            height: 160px;
+            width: 32px;
+            height: 32px;
             background: url('Bunny1.png') 0 0 no-repeat;
-            background-size: 736px 160px; /* 32px x 23 frames = 736px */
+            background-size: 160px 160px; /* Size of the whole sprite sheet */
             position: absolute;
-            top: -160px;
-            animation: hop 1s steps(23) infinite, fall 3s ease-in-out forwards;
+            top: -32px;
+            animation: hop 1s steps(22) infinite, fall 3s ease-in-out forwards;
         }
 
         /* Bunny hopping animation */
         @keyframes hop {
             0% { background-position: 0 0; }
-            100% { background-position: -736px 0; }
+            100% { background-position: -1280px 0; } /* 32px * 20 frames = 1280px */
         }
 
         /* Bunny falling animation */
         @keyframes fall {
             0% {
-                top: -160px;
+                top: -32px;
                 transform: translateX(0);
             }
             80% {
-                top: calc(100vh - 160px);
+                top: calc(100vh - 32px);
             }
             100% {
-                top: calc(100vh - 160px);
+                top: calc(100vh - 32px);
             }
         }
     </style>
 </head>
 <body>
-    <h1>Do you wanna be my Valentine?<br>(Would make me very happy)</h1>
+    <h1>Do you wanna be my Valentine?<br>(Would make me VeRY happy)</h1>
     <div class="buttons">
         <button id="yesBtn" onclick="createBunny()">Yes</button>
         <button id="noBtn">No</button>
