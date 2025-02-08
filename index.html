@@ -64,7 +64,7 @@
             background-size: 160px 160px; /* Size of the whole sprite sheet */
             position: absolute;
             top: -32px;
-            animation: fall 3s ease-in-out forwards, moveSideways 1s ease-in-out infinite;
+            animation: fall 3s ease-in-out forwards;
         }
 
         /* Bunny falling animation */
@@ -91,7 +91,7 @@
     </style>
 </head>
 <body>
-    <h1>Do you wanna be my Valentine?<br>(Would make me very happy)</h1>
+    <h1>Do you wanna be my Valentine?<br>(Would make me VERY happy)</h1>
     <div class="buttons">
         <button id="yesBtn" onclick="createBunny()">Yes</button>
         <button id="noBtn">No</button>
@@ -127,6 +127,7 @@
                 // Trigger the bunny's random movement after it has fallen
                 setTimeout(() => {
                     bunny.style.animation = "moveSideways 1s ease-in-out infinite";
+                    bunny.style.animationIterationCount = "infinite";  // Ensures continuous movement
                 }, 3000); // Starts moving after 3 seconds (after the fall)
             } else {
                 alert('Maximum number of bunnies reached!');
@@ -142,6 +143,7 @@
     </script>
 </body>
 </html>
+
 
 
 
