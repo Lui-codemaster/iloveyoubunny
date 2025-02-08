@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I love you Anna</title>
+    <title>1I love you Anna</title>
     <style>
         body {
             margin: 0;
@@ -73,7 +73,7 @@
                 top: -32px;
             }
             100% {
-                top: calc(100vh - 64px); /* Adjusted to keep the bunny visible */
+                top: calc(100vh - 64px); /* Make it fall to just above the bottom */
             }
         }
 
@@ -81,6 +81,13 @@
         @keyframes hop {
             from { background-position: 0 0; }
             to { background-position: -704px 0; } /* 32px * 22 frames = 704px */
+        }
+
+        /* Sideways movement */
+        @keyframes moveSideways {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(20px); }
+            100% { transform: translateX(0); }
         }
     </style>
 </head>
@@ -130,17 +137,6 @@
             const randomX = Math.floor(Math.random() * maxX);
             bunny.style.left = `${randomX}px`;
         }
-
-        // Define sideways movement
-        const style = document.createElement('style');
-        style.innerHTML = `
-            @keyframes moveSideways {
-                0% { transform: translateX(0); }
-                50% { transform: translateX(20px); }
-                100% { transform: translateX(0); }
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 </body>
 </html>
