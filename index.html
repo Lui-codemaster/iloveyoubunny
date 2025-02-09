@@ -31,6 +31,7 @@
     
     .buttons {
       margin-top: 20px;
+      margin-left: -30px; /* shift buttons to the left */
       z-index: 3;
     }
     
@@ -42,7 +43,7 @@
       border: none;
       border-radius: 20px;
       cursor: pointer;
-      background-color: #ffb3b3;  /* a soft rose, matching the initial background */
+      background-color: #ffb3b3;  /* a soft rose */
       color: #ffffff;
       transition: background-color 0.3s;
     }
@@ -79,7 +80,7 @@
       100% { top: calc(100vh - 160px); }
     }
     
-    /* (Optional) You can add CSS for the grass element if you prefer, but here we set most via JS */
+    /* Grass element styling */
     #grass {
       position: fixed;
       bottom: 0;
@@ -188,49 +189,40 @@
       // Create a grass block at the bottom.
       const grass = document.createElement("div");
       grass.id = "grass";
-      // (The CSS for #grass is defined above.)
       bunnyContainer.appendChild(grass);
       
-      // Generate some decorative elements (tall grass and flowers).
+      // Generate decorative elements in the grass: tall grass and flowers.
       const decoCount = 20; // number of decorations
       for (let i = 0; i < decoCount; i++) {
         const deco = document.createElement("div");
         deco.className = "deco";
-        // Random size between 2px and 6px.
-        const size = Math.floor(Math.random() * 5) + 2;
-        deco.style.width = `${size}px`;
-        deco.style.height = `${size}px`;
-        // Random horizontal position (in percent).
+        // 40% chance for a flower, otherwise tall grass.
+        const isFlower = Math.random() < 0.4;
+        const baseSize = Math.floor(Math.random() * 5) + 2; // size between 2 and 6
+        
+        if (isFlower) {
+          deco.classList.add("flower");
+          // Make the flower slightly larger.
+          deco.style.width = `${baseSize + 4}px`;
+          deco.style.height = `${baseSize + 4}px`;
+          // Use a radial gradient to simulate a flower (pink center with yellow petals).
+          deco.style.background = "radial-gradient(circle, #ff69b4 40%, #ffd700 60%)";
+        } else {
+          deco.classList.add("tall-grass");
+          deco.style.width = `${baseSize}px`;
+          deco.style.height = `${baseSize}px`;
+          deco.style.backgroundColor = "#2d572c";
+        }
+        
+        // Random horizontal position (in percent) within the grass.
         const leftPos = Math.random() * 100;
         deco.style.left = `${leftPos}%`;
-        // Random vertical position within the grass block (0 to (grass height - size)).
-        const topPos = Math.random() * (120 - size);
+        // Random vertical position within the grass block.
+        const topPos = Math.random() * (120 - baseSize);
         deco.style.top = `${topPos}px`;
-        // Random color: choose either dark green (for tall grass) or one of several flower colors.
-        const colors = ["#2d572c", "#ff69b4", "#ffd700", "#ff4500"];
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        deco.style.backgroundColor = color;
         grass.appendChild(deco);
       }
     }
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
