@@ -12,12 +12,13 @@
       padding: 0;
       overflow: hidden;
       font-family: Arial, sans-serif;
-      background-color: #ffe6e6;
+      background-color: #ffe6e6; /* initial soft pink */
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
+      position: relative;
     }
     
     h1 {
@@ -25,10 +26,12 @@
       font-size: 3em;
       text-align: center;
       font-family: 'Lobster', cursive;
+      z-index: 3;
     }
     
     .buttons {
       margin-top: 20px;
+      z-index: 3;
     }
     
     /* Uniform, nicer button styling */
@@ -37,15 +40,15 @@
       margin: 10px;
       font-size: 1.2em;
       border: none;
-      border-radius: 20px;  /* rounded shape */
+      border-radius: 20px;
       cursor: pointer;
-      background-color: #ffb3b3;  /* a soft rose, similar to the background */
+      background-color: #ffb3b3;  /* a soft rose, matching the initial background */
       color: #ffffff;
       transition: background-color 0.3s;
     }
     
     button:hover {
-      background-color: #ff9999; /* a slightly darker rose on hover */
+      background-color: #ff9999;
     }
     
     /* The "No" button remains positioned absolutely so it can move on hover */
@@ -53,11 +56,10 @@
       position: absolute;
     }
     
-    /* Bunny sprite styling:
-       - The original PNG is 160×160 with a 5×5 grid.
-       - Each unscaled frame is 32×32.
-       - A factor‑5 scale makes each frame 160×160.
-       - background-size is set to 800×800 to match the 5×5 grid.
+    /* Bunny sprite styling 
+       • The original PNG is 160×160 containing a 5×5 grid.
+       • Each unscaled frame is 32×32, but we use a factor‑5 scale so each frame becomes 160×160.
+       • The background-size is set to 800×800 (5×160) so the grid aligns properly.
     */
     .bunny {
       width: 160px;
@@ -65,15 +67,33 @@
       background: url('Bunny1.png') 0 0 no-repeat;
       background-size: 800px 800px;
       position: absolute;
-      top: -160px;  /* starts above view so the fall brings it fully into view */
+      top: -160px; /* starts above view so that the fall brings it fully into view */
       animation: fall 3s ease-in-out forwards;
-      transform: translateZ(0); /* force hardware acceleration */
+      transform: translateZ(0);
+      z-index: 2;
     }
     
-    /* Bunny falling animation (kept as before) */
+    /* Bunny falling animation */
     @keyframes fall {
       0% { top: -160px; }
       100% { top: calc(100vh - 160px); }
+    }
+    
+    /* (Optional) You can add CSS for the grass element if you prefer, but here we set most via JS */
+    #grass {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 120px;
+      background-color: #6ab04c; /* green grass */
+      z-index: 1;
+      overflow: hidden;
+    }
+    
+    .deco {
+      position: absolute;
+      border-radius: 50%;
     }
   </style>
 </head>
@@ -88,6 +108,7 @@
     const bunnyContainer = document.querySelector("body");
     const maxBunnies = 12;
     let bunnyCount = 0;
+    let environmentSet = false; // to ensure we set up the sky/grass only once
     
     // "No" button movement logic
     const noBtn = document.getElementById("noBtn");
@@ -104,21 +125,29 @@
         const bunny = document.createElement("div");
         bunny.classList.add("bunny");
         bunnyContainer.appendChild(bunny);
+    
+        // Set an initial random horizontal position for the bunny
         setRandomStart(bunny);
         bunnyCount++;
-        
-        // After the fall (3s) plus a short delay (300ms),
-        // start the sprite animation and horizontal movement.
+    
+        // If this is the first bunny, set up the environment (sky and grass)
+        if (bunnyCount === 1 && !environmentSet) {
+          setupEnvironment();
+          environmentSet = true;
+        }
+    
+        // After the fall (3 seconds) plus a short extra delay (300ms),
+        // start the sprite animation and the horizontal movement.
         setTimeout(() => {
           startSpriteAnimation(bunny);
           moveBunnySideways(bunny);
         }, 3300);
       } else {
-        alert("Maximum number of bunnies reached!");
+        alert("okay okay got it, thank you :) I love you <3");
       }
     }
     
-    // Set a random horizontal starting position
+    // Set a random horizontal starting position for the bunny.
     function setRandomStart(bunny) {
       const maxX = window.innerWidth - bunny.offsetWidth;
       const randomX = Math.floor(Math.random() * maxX);
@@ -150,9 +179,44 @@
       bunny.style.left = `${targetLeft}px`;
       setTimeout(() => moveBunnySideways(bunny), 2080);
     }
+    
+    // Set up the sky and grass environment after the first bunny is created.
+    function setupEnvironment() {
+      // Change the background to a soft sky blue.
+      document.body.style.backgroundColor = "#87ceeb"; // sky blue
+      
+      // Create a grass block at the bottom.
+      const grass = document.createElement("div");
+      grass.id = "grass";
+      // (The CSS for #grass is defined above.)
+      bunnyContainer.appendChild(grass);
+      
+      // Generate some decorative elements (tall grass and flowers).
+      const decoCount = 20; // number of decorations
+      for (let i = 0; i < decoCount; i++) {
+        const deco = document.createElement("div");
+        deco.className = "deco";
+        // Random size between 2px and 6px.
+        const size = Math.floor(Math.random() * 5) + 2;
+        deco.style.width = `${size}px`;
+        deco.style.height = `${size}px`;
+        // Random horizontal position (in percent).
+        const leftPos = Math.random() * 100;
+        deco.style.left = `${leftPos}%`;
+        // Random vertical position within the grass block (0 to (grass height - size)).
+        const topPos = Math.random() * (120 - size);
+        deco.style.top = `${topPos}px`;
+        // Random color: choose either dark green (for tall grass) or one of several flower colors.
+        const colors = ["#2d572c", "#ff69b4", "#ffd700", "#ff4500"];
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        deco.style.backgroundColor = color;
+        grass.appendChild(deco);
+      }
+    }
   </script>
 </body>
 </html>
+
 
 
 
