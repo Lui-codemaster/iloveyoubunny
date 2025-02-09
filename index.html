@@ -57,24 +57,24 @@
     }
 
     /* Bunny sprite styling */
-    /* 
-       • The original PNG is 160×160 with a 5×5 grid.
-       • Each frame in the unscaled version is 32×32.
-       • With a factor‑5 scale, each frame becomes 160×160.
-       • The background-size is set to 800×800 (i.e. 5×160 each direction).
+    /*  
+        The original PNG is 160x160 with a 5x5 grid.
+        • Each unscaled frame is 32x32.
+        • A factor‑5 scale makes each frame 160x160.
+        • background-size is set to 800x800 to match the 5x5 grid.
     */
     .bunny {
-      width: 160px;     /* scaled up (each frame is 160x160) */
-      height: 160px;
+      width: 160px;  /* scaled-up frame width */
+      height: 160px; /* scaled-up frame height */
       background: url('Bunny1.png') 0 0 no-repeat;
-      background-size: 800px 800px; /* 5 frames × 160px = 800px */
+      background-size: 800px 800px; /* 5 * 160 = 800 */
       position: absolute;
-      top: -160px; /* starts above view so the fall brings it fully into view */
+      top: -160px; /* starts above view so that the fall brings it fully into view */
       animation: fall 3s ease-in-out forwards;
       transform: translateZ(0); /* force hardware acceleration */
     }
 
-    /* Bunny falling animation (kept as is) */
+    /* Bunny falling animation */
     @keyframes fall {
       0% {
         top: -160px;
@@ -86,7 +86,7 @@
   </style>
 </head>
 <body>
-  <h1>Do you wanna be my Valentine?<br />(Would make me VERY happy)</h1>
+  <h1>Do you wanna be my Valentine?<br>(Would make me VERY happy)</h1>
   <div class="buttons">
     <button id="yesBtn" onclick="createBunny()">Yes</button>
     <button id="noBtn">No</button>
@@ -113,13 +113,12 @@
         bunny.classList.add("bunny");
         bunnyContainer.appendChild(bunny);
 
-        // Set initial random horizontal position for the bunny
+        // Set an initial random horizontal position for the bunny
         setRandomStart(bunny);
-
         bunnyCount++;
 
-        // After the fall (3 seconds) plus an extra short delay (e.g. 300ms),
-        // start the sprite animation (hopping frames) and horizontal movement.
+        // After the fall (3 seconds) plus a short extra delay (300ms),
+        // start the sprite animation and the horizontal movement.
         setTimeout(() => {
           startSpriteAnimation(bunny);
           moveBunnySideways(bunny);
@@ -129,48 +128,43 @@
       }
     }
 
-    // Set random horizontal position for each bunny
+    // Set a random horizontal starting position
     function setRandomStart(bunny) {
       const maxX = window.innerWidth - bunny.offsetWidth;
       const randomX = Math.floor(Math.random() * maxX);
       bunny.style.left = `${randomX}px`;
     }
 
-    // Update the bunny's sprite frame using a timer.
-    // The sprite sheet is a 5x5 grid with each frame 160x160.
+    // Update the bunny's sprite frame at 12 fps.
     function startSpriteAnimation(bunny) {
       const fps = 12; // desired frames per second
       const frameDuration = 1000 / fps; // duration per frame in ms (~83ms)
       const totalFrames = 25;
       let frame = 0;
-
+      
       setInterval(() => {
         // Calculate column and row for the current frame:
-        //   frame 0: (0,0), frame 1: (1,0), ..., frame 4: (4,0),
-        //   frame 5: (0,1), etc.
+        // Frame 0: (0,0), frame 1: (1,0), …, frame 4: (4,0),
+        // frame 5: (0,1), etc.
         const col = frame % 5;
         const row = Math.floor(frame / 5);
-        const posX = -col * 160; // each frame width is 160px
-        const posY = -row * 160; // each frame height is 160px
+        const posX = -col * 160; // each frame is 160px wide
+        const posY = -row * 160; // each frame is 160px high
         bunny.style.backgroundPosition = `${posX}px ${posY}px`;
         frame = (frame + 1) % totalFrames;
       }, frameDuration);
     }
 
-    // Move bunny left or right randomly
+    // Move the bunny horizontally smoothly over 2.08 seconds,
+    // matching the duration of the sprite animation cycle.
     function moveBunnySideways(bunny) {
       const maxX = window.innerWidth - bunny.offsetWidth;
-      let currentLeft = parseInt(bunny.style.left, 10) || 0;
-      let moveBy = Math.floor(Math.random() * 40) - 20; // between -20 and +20 px
-
-      let newLeft = currentLeft + moveBy;
-      if (newLeft < 0) newLeft = 0;
-      if (newLeft > maxX) newLeft = maxX;
-
-      bunny.style.left = `${newLeft}px`;
-
-      // Repeat the movement every 100ms
-      setTimeout(() => moveBunnySideways(bunny), 100);
+      const targetLeft = Math.floor(Math.random() * maxX);
+      // Apply a CSS transition for a smooth move over 2.08 seconds
+      bunny.style.transition = "left 2.08s linear";
+      bunny.style.left = `${targetLeft}px`;
+      // Schedule the next movement after 2.08 seconds.
+      setTimeout(() => moveBunnySideways(bunny), 2080);
     }
   </script>
 </body>
