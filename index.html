@@ -31,7 +31,7 @@
     
     .buttons {
       margin-top: 20px;
-      margin-left: -30px; /* shift buttons to the left */
+      margin-left: -30px; /* shift buttons a little to the left */
       z-index: 3;
     }
     
@@ -91,11 +91,6 @@
       z-index: 1;
       overflow: hidden;
     }
-    
-    .deco {
-      position: absolute;
-      border-radius: 50%;
-    }
   </style>
 </head>
 <body>
@@ -109,7 +104,7 @@
     const bunnyContainer = document.querySelector("body");
     const maxBunnies = 12;
     let bunnyCount = 0;
-    let environmentSet = false; // to ensure we set up the sky/grass only once
+    let environmentSet = false; // ensure environment (sky & grass) is set only once
     
     // "No" button movement logic
     const noBtn = document.getElementById("noBtn");
@@ -191,36 +186,21 @@
       grass.id = "grass";
       bunnyContainer.appendChild(grass);
       
-      // Generate decorative elements in the grass: tall grass and flowers.
-      const decoCount = 20; // number of decorations
-      for (let i = 0; i < decoCount; i++) {
-        const deco = document.createElement("div");
-        deco.className = "deco";
-        // 40% chance for a flower, otherwise tall grass.
-        const isFlower = Math.random() < 0.4;
-        const baseSize = Math.floor(Math.random() * 5) + 2; // size between 2 and 6
-        
-        if (isFlower) {
-          deco.classList.add("flower");
-          // Make the flower slightly larger.
-          deco.style.width = `${baseSize + 4}px`;
-          deco.style.height = `${baseSize + 4}px`;
-          // Use a radial gradient to simulate a flower (pink center with yellow petals).
-          deco.style.background = "radial-gradient(circle, #ff69b4 40%, #ffd700 60%)";
-        } else {
-          deco.classList.add("tall-grass");
-          deco.style.width = `${baseSize}px`;
-          deco.style.height = `${baseSize}px`;
-          deco.style.backgroundColor = "#2d572c";
-        }
-        
-        // Random horizontal position (in percent) within the grass.
-        const leftPos = Math.random() * 100;
-        deco.style.left = `${leftPos}%`;
-        // Random vertical position within the grass block.
-        const topPos = Math.random() * (120 - baseSize);
-        deco.style.top = `${topPos}px`;
-        grass.appendChild(deco);
+      // Generate a random number of flower images on top of the grass.
+      const numFlowers = Math.floor(Math.random() * 10) + 5; // between 5 and 14 flowers
+      for (let i = 0; i < numFlowers; i++) {
+        const flower = document.createElement("img");
+        flower.src = "flower.png"; // path to your flower sprite
+        flower.style.position = "absolute";
+        flower.style.width = "32px";
+        flower.style.height = "32px";
+        // Random horizontal position within the viewport (ensuring the flower is fully visible)
+        const randomLeft = Math.random() * (window.innerWidth - 32);
+        flower.style.left = `${randomLeft}px`;
+        // Random vertical position within the grass block (grass height is 120px)
+        const randomTop = Math.random() * (120 - 32);
+        flower.style.top = `${randomTop}px`;
+        grass.appendChild(flower);
       }
     }
   </script>
