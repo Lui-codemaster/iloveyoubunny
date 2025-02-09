@@ -1,184 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1I love you Anna</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-            background-color: #ffe6e6;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>I love you Anna</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background-color: #ffe6e6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
 
-        h1 {
-            color: #d6336c;
-            font-size: 3em;
-            text-align: center;
-        }
+    h1 {
+      color: #d6336c;
+      font-size: 3em;
+      text-align: center;
+    }
 
-        .buttons {
-            margin-top: 20px;
-        }
+    .buttons {
+      margin-top: 20px;
+    }
 
-        button {
-            padding: 15px 30px;
-            margin: 10px;
-            font-size: 1.2em;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-        }
+    button {
+      padding: 15px 30px;
+      margin: 10px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
 
-        #yesBtn {
-            background-color: #28a745;
-            color: white;
-        }
+    #yesBtn {
+      background-color: #28a745;
+      color: white;
+    }
 
-        #yesBtn:hover {
-            background-color: #218838;
-        }
+    #yesBtn:hover {
+      background-color: #218838;
+    }
 
-        #noBtn {
-            background-color: #dc3545;
-            color: white;
-            position: absolute;
-        }
+    #noBtn {
+      background-color: #dc3545;
+      color: white;
+      position: absolute;
+    }
 
-        #noBtn:hover {
-            background-color: #c82333;
-        }
+    #noBtn:hover {
+      background-color: #c82333;
+    }
 
-        /* Bunny sprite styling */
-        .bunny {
-            width: 160px; /* Adjusted size (scaled to 160px for better visibility) */
-            height: 160px; /* Adjusted size */
-            background: url('Bunny1.png') 0 0 no-repeat;
-            background-size: 800px 800px; /* Adjusted for the 5x5 grid (each frame 160px x 160px) */
-            position: absolute;
-            top: -160px; /* Adjusted to ensure it falls into view */
-            animation: fall 3s ease-in-out forwards;
-            transform: translateZ(0); /* Force hardware acceleration */
-        }
+    /* Bunny sprite styling */
+    /* 
+       • The original PNG is 160×160 with a 5×5 grid.
+       • Each frame in the unscaled version is 32×32.
+       • With a factor‑5 scale, each frame becomes 160×160.
+       • The background-size is set to 800×800 (i.e. 5×160 each direction).
+    */
+    .bunny {
+      width: 160px;     /* scaled up (each frame is 160x160) */
+      height: 160px;
+      background: url('Bunny1.png') 0 0 no-repeat;
+      background-size: 800px 800px; /* 5 frames × 160px = 800px */
+      position: absolute;
+      top: -160px; /* starts above view so the fall brings it fully into view */
+      animation: fall 3s ease-in-out forwards;
+      transform: translateZ(0); /* force hardware acceleration */
+    }
 
-        /* Bunny falling animation */
-        @keyframes fall {
-            0% {
-                top: -160px; /* Bunny starts off-screen */
-            }
-            100% {
-                top: calc(100vh - 160px); /* Bunny falls down fully visible */
-            }
-        }
-
-        /* Bunny animation through the 25 frames (5x5 grid) at 12 FPS */
-        @keyframes hop {
-            0% { background-position: 0 0; } /* Frame 1 */
-            4% { background-position: -160px 0; } /* Frame 2 */
-            8% { background-position: -320px 0; } /* Frame 3 */
-            12% { background-position: -480px 0; } /* Frame 4 */
-            16% { background-position: -640px 0; } /* Frame 5 */
-            20% { background-position: 0 -160px; } /* Frame 6 */
-            24% { background-position: -160px -160px; } /* Frame 7 */
-            28% { background-position: -320px -160px; } /* Frame 8 */
-            32% { background-position: -480px -160px; } /* Frame 9 */
-            36% { background-position: -640px -160px; } /* Frame 10 */
-            40% { background-position: 0 -320px; } /* Frame 11 */
-            44% { background-position: -160px -320px; } /* Frame 12 */
-            48% { background-position: -320px -320px; } /* Frame 13 */
-            52% { background-position: -480px -320px; } /* Frame 14 */
-            56% { background-position: -640px -320px; } /* Frame 15 */
-            60% { background-position: 0 -480px; } /* Frame 16 */
-            64% { background-position: -160px -480px; } /* Frame 17 */
-            68% { background-position: -320px -480px; } /* Frame 18 */
-            72% { background-position: -480px -480px; } /* Frame 19 */
-            76% { background-position: -640px -480px; } /* Frame 20 */
-            80% { background-position: 0 -640px; } /* Frame 21 */
-            84% { background-position: -160px -640px; } /* Frame 22 */
-            88% { background-position: -320px -640px; } /* Frame 23 */
-            92% { background-position: -480px -640px; } /* Frame 24 */
-            96% { background-position: -640px -640px; } /* Frame 25 */
-        }
-    </style>
+    /* Bunny falling animation (kept as is) */
+    @keyframes fall {
+      0% {
+        top: -160px;
+      }
+      100% {
+        top: calc(100vh - 160px);
+      }
+    }
+  </style>
 </head>
 <body>
-    <h1>Do you wanna be my Valentine?<br>(Would make me VERY happy)</h1>
-    <div class="buttons">
-        <button id="yesBtn" onclick="createBunny()">Yes</button>
-        <button id="noBtn">No</button>
-    </div>
+  <h1>Do you wanna be my Valentine?<br />(Would make me VERY happy)</h1>
+  <div class="buttons">
+    <button id="yesBtn" onclick="createBunny()">Yes</button>
+    <button id="noBtn">No</button>
+  </div>
 
-    <script>
-        const bunnyContainer = document.querySelector('body');
-        const maxBunnies = 12;
-        let bunnyCount = 0;
+  <script>
+    const bunnyContainer = document.querySelector("body");
+    const maxBunnies = 12;
+    let bunnyCount = 0;
 
-        // "No" button movement logic
-        const noBtn = document.getElementById('noBtn');
-        noBtn.addEventListener('mouseover', () => {
-            const randomX = Math.floor(Math.random() * (window.innerWidth - noBtn.offsetWidth));
-            const randomY = Math.floor(Math.random() * (window.innerHeight - noBtn.offsetHeight));
-            noBtn.style.left = `${randomX}px`;  // Move the button randomly on hover
-            noBtn.style.top = `${randomY}px`;
-        });
+    // "No" button movement logic
+    const noBtn = document.getElementById("noBtn");
+    noBtn.addEventListener("mouseover", () => {
+      const randomX = Math.floor(Math.random() * (window.innerWidth - noBtn.offsetWidth));
+      const randomY = Math.floor(Math.random() * (window.innerHeight - noBtn.offsetHeight));
+      noBtn.style.left = `${randomX}px`;
+      noBtn.style.top = `${randomY}px`;
+    });
 
-        // Create a bunny when "Yes" is clicked
-        function createBunny() {
-            if (bunnyCount < maxBunnies) {
-                const bunny = document.createElement('div');
-                bunny.classList.add('bunny');
-                bunnyContainer.appendChild(bunny);
+    // Create a bunny when "Yes" is clicked
+    function createBunny() {
+      if (bunnyCount < maxBunnies) {
+        const bunny = document.createElement("div");
+        bunny.classList.add("bunny");
+        bunnyContainer.appendChild(bunny);
 
-                // Set initial random position for the bunny
-                setRandomStart(bunny);
+        // Set initial random horizontal position for the bunny
+        setRandomStart(bunny);
 
-                // Increment the bunny count
-                bunnyCount++;
+        bunnyCount++;
 
-                // Trigger the bunny's animation and random movement after it has fallen
-                setTimeout(() => {
-                    bunny.style.top = `calc(100vh - 160px)`;  // Adjusted for the new size
-                    bunny.style.animation = "hop 2.08s steps(25) infinite";  // Start the sprite animation
-                    moveBunnySideways(bunny);  // Start moving sideways
-                }, 3000);
-            } else {
-                alert('Maximum number of bunnies reached!');
-            }
-        }
+        // After the fall (3 seconds) plus an extra short delay (e.g. 300ms),
+        // start the sprite animation (hopping frames) and horizontal movement.
+        setTimeout(() => {
+          startSpriteAnimation(bunny);
+          moveBunnySideways(bunny);
+        }, 3300);
+      } else {
+        alert("Maximum number of bunnies reached!");
+      }
+    }
 
-        // Set random horizontal position for each bunny
-        function setRandomStart(bunny) {
-            const maxX = window.innerWidth - bunny.offsetWidth;
-            const randomX = Math.floor(Math.random() * maxX);
-            bunny.style.left = `${randomX}px`;
-        }
+    // Set random horizontal position for each bunny
+    function setRandomStart(bunny) {
+      const maxX = window.innerWidth - bunny.offsetWidth;
+      const randomX = Math.floor(Math.random() * maxX);
+      bunny.style.left = `${randomX}px`;
+    }
 
-        // Move bunny left or right randomly
-        function moveBunnySideways(bunny) {
-            const maxX = window.innerWidth - bunny.offsetWidth;
-            let currentLeft = parseInt(bunny.style.left, 10) || 0;
-            let moveBy = Math.floor(Math.random() * 40) - 20;  // Move between -20 and +20 px
+    // Update the bunny's sprite frame using a timer.
+    // The sprite sheet is a 5x5 grid with each frame 160x160.
+    function startSpriteAnimation(bunny) {
+      const fps = 12; // desired frames per second
+      const frameDuration = 1000 / fps; // duration per frame in ms (~83ms)
+      const totalFrames = 25;
+      let frame = 0;
 
-            // Ensure the bunny stays within the screen boundaries
-            let newLeft = currentLeft + moveBy;
-            if (newLeft < 0) newLeft = 0;
-            if (newLeft > maxX) newLeft = maxX;
+      setInterval(() => {
+        // Calculate column and row for the current frame:
+        //   frame 0: (0,0), frame 1: (1,0), ..., frame 4: (4,0),
+        //   frame 5: (0,1), etc.
+        const col = frame % 5;
+        const row = Math.floor(frame / 5);
+        const posX = -col * 160; // each frame width is 160px
+        const posY = -row * 160; // each frame height is 160px
+        bunny.style.backgroundPosition = `${posX}px ${posY}px`;
+        frame = (frame + 1) % totalFrames;
+      }, frameDuration);
+    }
 
-            bunny.style.left = `${newLeft}px`;
+    // Move bunny left or right randomly
+    function moveBunnySideways(bunny) {
+      const maxX = window.innerWidth - bunny.offsetWidth;
+      let currentLeft = parseInt(bunny.style.left, 10) || 0;
+      let moveBy = Math.floor(Math.random() * 40) - 20; // between -20 and +20 px
 
-            // Repeat the movement every 100ms
-            setTimeout(() => moveBunnySideways(bunny), 100);
-        }
-    </script>
+      let newLeft = currentLeft + moveBy;
+      if (newLeft < 0) newLeft = 0;
+      if (newLeft > maxX) newLeft = maxX;
+
+      bunny.style.left = `${newLeft}px`;
+
+      // Repeat the movement every 100ms
+      setTimeout(() => moveBunnySideways(bunny), 100);
+    }
+  </script>
 </body>
 </html>
+
 
 
 
