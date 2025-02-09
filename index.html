@@ -187,18 +187,20 @@
       bunnyContainer.appendChild(grass);
       
       // Generate a random number of flower images on top of the grass.
-      const numFlowers = Math.floor(Math.random() * 10) + 5; // between 5 and 14 flowers
+      // Now more plentiful: between 15 and 30 flowers.
+      const numFlowers = Math.floor(Math.random() * 16) + 15;
       for (let i = 0; i < numFlowers; i++) {
         const flower = document.createElement("img");
         flower.src = "flower.png"; // path to your flower sprite
         flower.style.position = "absolute";
-        flower.style.width = "32px";
-        flower.style.height = "32px";
-        // Random horizontal position within the viewport (ensuring the flower is fully visible)
-        const randomLeft = Math.random() * (window.innerWidth - 32);
+        // Make the flower 1.7 times bigger (approximately 54px instead of 32px)
+        flower.style.width = "54px";
+        flower.style.height = "54px";
+        // Random horizontal position ensuring the flower is fully visible.
+        const randomLeft = Math.random() * (window.innerWidth - 54);
         flower.style.left = `${randomLeft}px`;
-        // Random vertical position within the grass block (grass height is 120px)
-        const randomTop = Math.random() * (120 - 32);
+        // Random vertical position within the grass block.
+        const randomTop = Math.random() * (120 - 54);
         flower.style.top = `${randomTop}px`;
         grass.appendChild(flower);
       }
